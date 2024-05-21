@@ -8,9 +8,7 @@
 > > - [x] services
 
 > - [ ] Создать абстракции
-> > - [x] [repositories][1]
+> > - [x] repositories
 > > - [ ] routers
 > > - [ ] services
 
-
-[1]: "Уровень для ображения к базам данных"
