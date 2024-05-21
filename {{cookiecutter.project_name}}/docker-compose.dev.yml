@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./{{cookiecutter.api_name}}
+      dockerfile: Dockerfile
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./{{cookiecutter.api_name}}:/app
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - ./data_postgres:/var/lib/postgresql/data
+
+volumes:
+  data_postgres:
